@@ -44,3 +44,8 @@ We may update this Privacy Policy from time to time. Any changes will be posted 
 If you have any questions or concerns regarding this Privacy Policy or our data practices, please contact us at:
 
 Email: rcop2024@gmail.com alternatively: utkarshmhatre434@gmail.com
+
+
+Req:  
+<img src="https://github.com/Pbhacks/crud_thought/blob/main/assets/AppIm/3.jpeg" alt="IMG" width="400" height="800">
+<img src="https://github.com/Pbhacks/crud_thought/blob/main/assets/AppIm/4.jpeg" alt="IMG" width="400" height="800">
