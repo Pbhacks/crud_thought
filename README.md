@@ -49,5 +49,4 @@ Thank you for using **My Notes App**! 🎉 Feel free to share your feedback or r
 ---
 
 ### 🎨 Disclaimer
-All images used in the app are either original, licensed, or belong to their respective copyright holders with permission.
-@credits to UNSPLASH for free Images
+All images used in the app are royalty/copyright free. Credits to Unsplash for Images 
