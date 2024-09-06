@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crud_thought/services/firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:crud_thought/genai_page.dart'; // Import the GenAIPage
+import 'package:curved_navigation_bar/curved_navigation_bar.dart'; // Import the curved_navigation_bar package
+import 'package:crud_thought/about_us_page.dart'; // Import the AboutUsPage
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,9 +15,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirestoreService firestoreService = FirestoreService();
-
-  // Text controller for input field
   final TextEditingController textController = TextEditingController();
+  int _selectedIndex = 0;
 
   // Method to open the dialog box for adding or updating a note
   void openNoteBox({String? docID}) {
@@ -58,8 +60,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 63, 10, 10),
+        backgroundColor: const Color.fromARGB(255, 163, 26, 26),
         title: const Text('Notes'),
         titleTextStyle: const TextStyle(
           fontStyle: FontStyle.italic,
@@ -67,13 +70,17 @@ class _HomePageState extends State<HomePage> {
           color: Color.fromARGB(255, 252, 252, 252),
         ),
         centerTitle: true,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          openNoteBox();
-        },
-        backgroundColor: Colors.deepPurple,
-        child: const Icon(Icons.add),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AboutUsPage()),
+              );
+            },
+          ),
+        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: firestoreService.getNotesStream(),
@@ -86,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                 child: const Text(
                   "No Notes...",
                   style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
-                ).animate().fadeIn(), // Remove `const` here
+                ).animate().fadeIn(),
               );
             }
 
@@ -126,16 +133,41 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                  )
-                      .animate()
-                      .fadeIn(duration: 300.milliseconds)
-                      .slideX(begin: 1.0, end: 0.0), // Remove `const` here
+                  ).animate().fadeIn(duration: 300.milliseconds).slideX(
+                        begin: 1.0,
+                        end: 0.0,
+                      ),
                 );
               },
             );
           } else {
             return const Center(
               child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: const Color.fromARGB(255, 7, 6, 6),
+        color: Colors.deepPurple,
+        buttonBackgroundColor: Colors.deepPurple,
+        height: 60,
+        items: <Widget>[
+          Icon(Icons.home, size: 30, color: Colors.white),
+          Icon(Icons.add, size: 30, color: Colors.white),
+          Icon(Icons.smart_toy, size: 30, color: Colors.white),
+        ],
+        index: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+          if (index == 1) {
+            openNoteBox();
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ChatBot()),
             );
           }
         },
